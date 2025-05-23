@@ -11,11 +11,11 @@ const Home = () => {
     const [display, setDisplay] = useState([])
     const [showModal, setShowModal] = useState (false)
     const [selectedTodo, setSelectedTodo] = useState (null)
-    const endpoint = 'http://localhost:5555/addTodo'
-    const answer = 'http://localhost:5555/submittedTodo'
-    const delete_url = 'http://localhost:5555/delete'
-    const update_url = 'http://localhost:5555/update'
-    const checkbox_url = 'http://localhost:555/toggle'
+    const endpoint = 'https://task-tracker-q8jo.vercel.app/addTodo'
+    const answer = 'https://task-tracker-q8jo.vercel.app/submittedTodo'
+    const delete_url = 'https://task-tracker-q8jo.vercel.app/delete'
+    const update_url = 'https://task-tracker-q8jo.vercel.app/update'
+    const checkbox_url = 'https://task-tracker-q8jo.vercel.app/toggle'
 
 
     const {userId} = useParams()
