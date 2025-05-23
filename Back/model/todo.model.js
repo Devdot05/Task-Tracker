@@ -8,9 +8,10 @@ let todoSchema = mongoose.Schema({
     userId: String,
     title: String,
     description: String,
-    isDone: {type:Boolean, default: false},
+    done: {type:Boolean, default: false},
+    // date: Date.now,
     dueDate: Date,  
-    // date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now }
 })
 
 let todoModel = mongoose.model("todos", todoSchema)

@@ -43,16 +43,41 @@ const getTodo = (req,res)=>{
 }
 
 
+ 
+// PUT request to update a task's status (done/not done)
+ const toggleCheckbox = async (req, res) => {
+  try {
+    const taskId = req.params.id;
+    const { done } = req.body; // Expecting 'done': true/false from the frontend
 
-const toggleCheckbox = async () =>{
-    try{
-        const {id, isDone} = req.body
-        const updatedTodo = await todoModel.findByIdAndUpdate(id, {isDone}, {new: true});
-        res.json(updatedTodo)
-    }catch(err){
-        res.status(500).json({ error: 'Toggle failed', details: err });
+    // Find the task by ID
+    const task = await Task.findById(taskId);
+
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found' });
     }
-}
+
+    // Update the task's 'done' field
+    task.done = done;
+    await task.save();
+
+    res.json(task); // Send back the updated task
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+// const toggleCheckbox = async () =>{
+//     try{
+//         const {id, isDone} = req.body
+//         const updatedTodo = await todoModel.findByIdAndUpdate(id, {isDone}, {new: true});
+//         res.json(updatedTodo)
+//     }catch(err){
+//         res.status(500).json({ error: 'Toggle failed', details: err });
+//     }
+// }
 
 const deleteTodo = (req, res) => {
     console.log(req.body);

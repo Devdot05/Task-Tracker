@@ -7,6 +7,6 @@ todoRouter.post("/addTodo", addTodo)
 todoRouter.get("/submittedTodo", getTodo)
 todoRouter.post('/delete', deleteTodo)
 todoRouter.post('/update', updateTodo)
-todoRouter.post('/toggle', toggleCheckbox)
+todoRouter.put('/:id', toggleCheckbox)
 
 module.exports = todoRouter
