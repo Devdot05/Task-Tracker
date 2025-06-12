@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 
  
 const allowedOrigins = [
-  'https://task-tracker-tiz5.vercel.app',
+  'https://task-tracker-4t8c.vercel.app',
   'http://localhost:5175'
 ];
 
