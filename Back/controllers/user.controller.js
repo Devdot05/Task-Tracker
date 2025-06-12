@@ -64,23 +64,23 @@ let userLogin = (req, res) => {
     
 }
 
-const getProtected = (req, res) => {
-    let token = req.headers.authorization.split(" ")[1];
-    jwt.verify(token, SECRET_KEY, (err, result)=>{
-        if(err){
-            console.log(err);
-            res.send({status: false, message: "session expired. Kindly signin again"})
-        }else{
-            console.log(result);
-            res.send({status: true, message: "Login successfully"})
-        }
-    })
+// const getProtected = (req, res) => {
+//     let token = req.headers.authorization.split(" ")[1];
+//     jwt.verify(token, SECRET_KEY, (err, result)=>{
+//         if(err){
+//             console.log(err);
+//             res.send({status: false, message: "session expired. Kindly signin again"})
+//         }else{
+//             console.log(result);
+//             res.send({status: true, message: "Login successfully"})
+//         }
+//     })
     
     
-}
+// }
 
 
 
  
 
-module.exports = {register,userLogin, getProtected,}
+module.exports = {register,userLogin,}
