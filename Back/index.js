@@ -15,12 +15,25 @@ app.use((req, res, next) => {
 });
 
  
+const allowedOrigins = [
+  'https://task-tracker-tiz5.vercel.app',
+  'http://localhost:5175'
+];
+
 const corsOptions = {
-  origin: 'https://task-tracker-tiz5.vercel.app',
-  // credentials: true, // needed if using cookies/sessions
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like curl or Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
+
 
 app.use(cors(corsOptions));
 
@@ -37,7 +50,12 @@ app.use(express.urlencoded({extended:true, limit:"500mb"}));
 
  
 app.use("/user",userRouter)
-app.use("/todo", todoRouter)         
+app.use("/todo", todoRouter)    
+
+app.get("/test", (req, res) => {
+  res.json({ message: "Backend is working!" });
+});
+
 app.listen(port, ()=>{
     console.log(`app is listening on port ${port}`);
 })

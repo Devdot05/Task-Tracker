@@ -11,16 +11,7 @@ const Signup = () => {
   const navigate = useNavigate()
  
   const [message, setMessage] = useState('')
-
-  fetch('https://task-tracker-z3o3-p8109l2c3-olawole-dotuns-projects.vercel.app/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
-
-
+ 
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -74,49 +65,61 @@ const Signup = () => {
             </div>
             <small>{message}</small>
             <div className='col-xl-7 col-xxl-7 col-lg-7 col-md-7 col-sm-11 mx-auto py-4' >
+              <div>
                 <input type="text" 
                 name='firstName'
                 placeholder='Enter your first name'
                 className='form-control shadow-none'
+                value={formik.values.firstName}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 />
-                <small className='text-danger'>{formik.touched.firstName && formik.errors.lastName}</small>
+                <small className='text-danger'>{formik.touched.firstName && formik.errors.firstName}</small>
+              </div>
+              <div>
                 <input type="text" 
                 name='lastName'
                 placeholder='Enter your last name'
                 className='form-control mt-3 shadow-none'
+                value={formik.values.lastName}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 />
                 <small className='text-danger'>{formik.touched.lastName && formik.errors.lastName}</small>
+              </div>
+              <div>
                 <input type="email" 
                 name='email'
                 placeholder='Enter your email'
                 className='form-control mt-3 shadow-none'
+                value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 />
                 <small className='text-danger rounded-pill'>{formik.touched.email && formik.errors.email}</small>
+              </div>
+              <div>
                 <input type="password" 
                 name='password'
                 placeholder='Create a your password'
                 className='form-control mt-3 shadow-none'
+                value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 />
                 <small className='text-danger'>{formik.touched.password && formik.errors.password}</small>
+              </div>
             </div>
             <div className='col-12 col-md-5 col-lg-5 col-xl-5 col-xxl-5 py-2'>
                 <div>
                 <button type='submit' className='btn btn-info w-100 rounded-pill my-3' disabled={!formik.isValid && !formik.isSubmitting}>Submit</button>
                 <p className='text-center'>Already having an account? &nbsp;<a href="/login"> login here</a></p>
                 </div>
-                <h5 className='text-center'>OR</h5>
+                {/* <h5 className='text-center'>OR</h5>
                 <div>
                 <button className='btn border border-black w-100 mb-4' onClick={handleGoogle}><img src="/images/Google.png" alt="" width={'30px'}/>signup with facebook</button>
                 <button className='btn border border-black w-100'><i class="fa-brands fa-facebook"></i>&nbsp; signup with google</button>
-                </div>
+                </div> */}
             </div>
             </form>
         </div>
