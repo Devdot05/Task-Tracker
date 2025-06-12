@@ -15,11 +15,11 @@ const Home = () => {
     const [display, setDisplay] = useState([])
     const [showModal, setShowModal] = useState (false)
     const [selectedTodo, setSelectedTodo] = useState (null)
-    const endpoint = 'https://task-tracker-q8jo.vercel.app/addTodo'
-    const answer = 'https://task-tracker-q8jo.vercel.app/submittedTodo'
-    const delete_url = 'https://task-tracker-q8jo.vercel.app/delete'
-    const update_url = 'https://task-tracker-q8jo.vercel.app/update'
-    const checkbox_url = 'https://task-tracker-q8jo.vercel.app'; // Corrected URL
+    const endpoint = 'https://task-tracker-z3o3-p8109l2c3-olawole-dotuns-projects.vercel.app/addTodo'
+    const answer = 'https://task-tracker-z3o3-p8109l2c3-olawole-dotuns-projects.vercel.app/submittedTodo'
+    const delete_url = 'https://task-tracker-z3o3-p8109l2c3-olawole-dotuns-projects.vercel.app/delete'
+    const update_url = 'https://task-tracker-z3o3-p8109l2c3-olawole-dotuns-projects.vercel.app/update'
+    // const checkbox_url = 'https://task-tracker-z3o3-p8109l2c3-olawole-dotuns-projects.vercel.app/'; // Corrected URL
 
 
     const {userId} = useParams()
