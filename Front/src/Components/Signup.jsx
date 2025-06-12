@@ -11,6 +11,16 @@ const Signup = () => {
   const navigate = useNavigate()
  
   const [message, setMessage] = useState('')
+
+  fetch('https://task-tracker-z3o3-p8109l2c3-olawole-dotuns-projects.vercel.app/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -18,6 +28,8 @@ const Signup = () => {
       email: "",
       password: ""
     },
+
+    
     
     onSubmit: (values) => {
       console.log(values);
@@ -47,12 +59,7 @@ const Signup = () => {
 
     
   })
-  console.log(formik.errors);
-
-
-  const handleGoogle = () => {
-    window.location.href = 'http://localhost:7000/auth/google'
-  }
+   
   
 
 
