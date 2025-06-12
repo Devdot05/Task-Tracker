@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 const Signup = () => {
-  const url = "https://task-tracker-gzvf.vercel.app/register"
+  const url = "https://task-tracker-gzvf.vercel.app/user/register"
   const navigate = useNavigate()
  
   const [message, setMessage] = useState('')
