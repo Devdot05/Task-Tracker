@@ -21,6 +21,8 @@ const Login = () => {
       axios.post(url, values)
         .then((response) => {
           if (response.data.status === true) {
+            console.log(response.data);
+            
             const id = response.data.user._id;
             const userDetails = response.data.user;
 
