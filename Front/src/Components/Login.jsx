@@ -47,21 +47,14 @@ const Login = () => {
   return (
     <>
       <section className='bg-color vh-100 container-fluid'>
-        <div className='row bg text-center col-xl-8 col-xxl-8 col-lg-8 col-md-8 col-sm-11 p-5 rounded-5 mx-auto my-3 shadow'>
-          <h1 className=''>Welcome Back</h1>
-          <button type="button" class="btn btn-secondary"
-        data-bs-toggle="tooltip" data-bs-placement="top"
-        data-bs-custom-class="custom-tooltip"
-        data-bs-title="This top tooltip is themed via CSS variables.">
-  Custom tooltip
-</button>
-
+        <div className='row bg text-center col-xl-6 col-xxl-6 col-lg-6 col-md-8 col-sm-11 p-5 rounded-5 mx-auto my-3 shadow'>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center" style={{ height: "200px" }}>
               <div className="spinner"></div>
             </div>
           ) : (
-            <form onSubmit={formik.handleSubmit} className='col-6'>
+            <form onSubmit={formik.handleSubmit} className='col-12'>
+              <h1 className=''>Welcome Back</h1>
               <input
                 type="email"
                 name='email'
@@ -82,17 +75,7 @@ const Login = () => {
             </form>
           )}
 
-          {!loading && (
-            <div className='col-6 py-2 shadow'>
-              <div className='d-flex gap-2'>
-                <hr style={{ width: "100%" }} />
-                <p>or</p>
-                <hr style={{ width: "100%" }} />
-              </div>
-              <button className='btn border border-black w-100 mb-4'><img src="/images/Google.png" alt="" width={'30px'} />signup with facebook</button>
-              <button className='btn border border-black w-100'><i className="fa-brands fa-facebook"></i>&nbsp; signup with google</button>
-            </div>
-          )}
+           
         </div>
       </section>
 
