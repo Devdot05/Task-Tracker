@@ -2,6 +2,7 @@ import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
+import './Auth.css'
 
 const Login = () => {
   
@@ -24,7 +25,12 @@ const Login = () => {
             console.log(response.data);
             
             const id = response.data.user._id;
-            const userDetails = response.data.user;
+            const users = response.data.user;
+            const userDetails = {
+              firstName:users.firstName,
+              lastName: users.lastName,
+              _id: users._id
+            }
 
             localStorage.setItem("users", JSON.stringify(userDetails))
             localStorage.token = response.data.token
@@ -48,14 +54,14 @@ const Login = () => {
 
   return (
     <>
-      <section className='bg-color vh-100 container-fluid'>
-        <div className='row bg text-center col-xl-6 col-xxl-6 col-lg-6 col-md-8 col-sm-11 p-5 rounded-5 mx-auto my-3 shadow'>
+      <section className=' vh-100 container-fluid pt-5 d-none d-sm-block section' style={{ padding: '60px 0 60px 0'}}>
+        <div className='row text-center col-xl-6 col-xxl-6 col-lg-6 col-md-8 col-sm-11 py-5 rounded-5 mx-auto shadow'>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center" style={{ height: "200px" }}>
               <div className="spinner"></div>
             </div>
           ) : (
-            <form onSubmit={formik.handleSubmit} className='col-12'>
+            <form onSubmit={formik.handleSubmit} className='col-12 col-md-10 col-lg-10 col-xl-10 col-xxl-10  mx-auto'>
               <h1 className=''>Welcome Back</h1>
               <input
                 type="email"
@@ -72,12 +78,42 @@ const Login = () => {
                 onChange={formik.handleChange}
               />
               <small className='text-danger'>{message}</small>
-              <button type='submit' className='btn btn-success w-100 my-3'>Login</button>
+              <button type='submit' className='btn btn-success w-100 my-3 rounded-pill'>Login</button>
               <p className='text center'>You don't have account with us <a href="/signup">Register here</a></p>
             </form>
           )}
 
-           
+        </div>
+      </section>
+      <section className=' vh-100 container-fluid pt-5 d-block d-sm-none section' style={{backgroundColor: '#CFE2FF'}}>
+        <div className='row text-center col-xl-6 col-xxl-6 col-lg-6 col-md-8 col-sm-11 py-5 rounded-5 mx-auto'>
+          {loading ? (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: "200px" }}>
+              <div className="spinner"></div>
+            </div>
+          ) : (
+            <form onSubmit={formik.handleSubmit} className='col-12 col-md-10 col-lg-10 col-xl-10 col-xxl-10  mx-auto'>
+              <h1 className=''>Welcome Back</h1>
+              <input
+                type="email"
+                name='email'
+                placeholder='enter you email'
+                className='form-control shadow-none mt-3'
+                onChange={formik.handleChange}
+              />
+              <input
+                type="password"
+                name='password'
+                placeholder='enter your password'
+                className='form-control shadow-none mt-3'
+                onChange={formik.handleChange}
+              />
+              <small className='text-danger'>{message}</small>
+              <button type='submit' className='btn btn-success w-100 my-3 rounded-pill'>Login</button>
+              <p className='text center'>You don't have account with us <a href="/signup">Register here</a></p>
+            </form>
+          )}
+
         </div>
       </section>
 
@@ -96,6 +132,10 @@ const Login = () => {
           to {
             transform: rotate(360deg);
           }
+        }
+
+        section{
+        background-image: '/images/todo 1.jpeg'
         }
       `}</style>
     </>

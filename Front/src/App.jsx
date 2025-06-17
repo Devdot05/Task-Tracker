@@ -8,6 +8,7 @@ import Signup from './Components/Signup'
 import Login from './Components/Login'
 import Layout from './Components/Layout'
 import { Navigate, Route, Routes, } from 'react-router-dom'
+import Navbar from './Components/Navbar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,8 +17,9 @@ function App() {
 
   return (
     <>
+      {/* <Navbar/> */}
       <Routes>
-        <Route path='/' element={<Navigate to='/signup'/>}/>
+        <Route path='/' element={<Layout/>}/>
         <Route path='/signup' element={<Signup/>} />
         <Route path='/login' element={<Login/>} />
         {/* <Route path='/dashboard/:id' element={<User_profile/>}/> */}

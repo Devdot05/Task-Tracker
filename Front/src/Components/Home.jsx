@@ -2,11 +2,14 @@ import axios from 'axios';
 import React from 'react'
 import  { useState, useEffect } from 'react'
 import Modal from './Modal';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import LogoutIcon from '@mui/icons-material/Logout'
 import EditIcon from '@mui/icons-material/Edit';    
+import Navbar from './Navbar';
+import { lightGreen } from '@mui/material/colors';
 
 const Home = () => {
     const [title, setTitle] = useState('');
@@ -19,12 +22,13 @@ const Home = () => {
     const answer = 'https://task-tracker-gzvf.vercel.app/todo/submittedTodo'
     const delete_url = 'https://task-tracker-gzvf.vercel.app/todo/delete'
     const update_url = 'https://task-tracker-gzvf.vercel.app/todo/update'
-    // const checkbox_url = 'https://task-tracker-z3o3-p8109l2c3-olawole-dotuns-projects.vercel.app/'; // Corrected URL
-
+    const checkbox_url = 'https://task-tracker-gzvf.vercel.app/todo';
+// 
 
     const {userId} = useParams()
     const user = JSON.parse(localStorage.getItem('users'))
     const token = localStorage.getItem('token')
+    const navigate = useNavigate()
   
 
     const todoInfo = (e) =>{
@@ -36,7 +40,7 @@ const Home = () => {
             console.log(obj);
             axios.post(endpoint, obj)
             .then((res)=>{
-                console.log(res);
+                // console.log(res);
                 fetchData();
                 
             }).catch((err)=>{
@@ -45,6 +49,7 @@ const Home = () => {
 
             setTitle("")
             setDesc("")
+            setDueDate("")
         }
     }
 
@@ -55,7 +60,7 @@ const Home = () => {
 
 const toggleDone = async (todo) => {
     try {
-        const response = await axios.put(`${checkbox_url}/${todo._id}`, {
+        const response = await axios.put(`${checkbox_url}/toggle`, {
             done: !todo.isDone
         });
 
@@ -68,14 +73,11 @@ const toggleDone = async (todo) => {
         // Handle error (e.g., display an error message to the user)
     }
 };
-
-// ... (rest of your component) ...
-
-
+ 
 
     // const toggleDone = (todo) => {
     //     const updatedStatus = !todo.isDone
-    //     axios.post(checkbox_url, {id: todo._id, isDone: updatedStatus})
+    //     axios.post(`${checkbox_url}/toggle`, {id: todo._id, isDone: updatedStatus})
     //     .then((res)=> {
     //         const updatedTodos = display.map(item =>
     //             item._id === todo._id ? res.data : item
@@ -97,12 +99,12 @@ const toggleDone = async (todo) => {
        axios
        .get(answer)
        .then((res)=>{
-        console.log(res.data.message);
+        // console.log(res.data.message);
         const allTodo = res.data.message || []
         const userTodo = allTodo.filter((todo) => todo.userId=== userId)
-        console.log(userTodo);
+        // console.log(userTodo);
         allTodo.forEach(todo => {
-            console.log("todo.userId:", todo.userId, "type:", typeof todo.userId);
+            // console.log("todo.userId:", todo.userId, "type:", typeof todo.userId);
           });
         
         setDisplay(userTodo)
@@ -120,14 +122,14 @@ const toggleDone = async (todo) => {
 
     
     const deleteInfo = (id) =>{1
-        const confirmDelete = confirm("Are you sure you want to delete")
+        const confirmDelete = confirm("This action is irreversible, Are you sure you want to delete it?")
         console.log(confirmDelete);
         if(confirmDelete === true){
             axios.post(delete_url, {id})
             .then((res)=>{
-                console.log(res);
+                // console.log(res);
                 const updatedDisplay = display.filter((todo) => todo._id !== id);
-                console.log(updatedDisplay);
+                // console.log(updatedDisplay);
                 
                 setDisplay(updatedDisplay);
                 
@@ -154,7 +156,7 @@ const toggleDone = async (todo) => {
         axios.post(update_url, updatedTodo)
         
         .then((res)=> {
-            console.log(res);
+            // console.log(res);
             
             const updatedList = display.map(todo => todo._id === updatedTodo._id ? updatedTodo : todo)
             setDisplay(updatedList)
@@ -165,92 +167,191 @@ const toggleDone = async (todo) => {
         })
     }
 
-    const logoutBtn = () => {
-
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        navigate('/login')
+         
     }
 
 
   return (
     <>
-        <main style={{backgroundColor: '#E2E3E5', minHeight: '100vh'}} >
-            <div className='d-flex justify-content-end me-3'>
-                <button onClick={logoutBtn} className='btn btn-secondary'>Logout</button>
-            </div>
-            <section style={{backgroundColor: '#E2E3E5', paddingTop: '30px'}} >
-                <form action="" className='col-11 col-md-8 col-lg-6 col-xl-6 col-xxl-6 mx-auto p-  text-center ' style={{ overflowX: 'hidden'}}>
-                    <div className='mb-3'>
-                        <h3>Welcome! <span>{user.firstName}</span>&nbsp;<span>{user.lastName}</span></h3>
+        <main style={{backgroundColor: '#6699E8', minHeight: '100vh', overflowX: 'auto'}} >
+            <nav className='container-fluid'>
+                <div className='row'>
+                    <div className='mb-3 col-6'>
+                        <h3>Welcome! <span className='text-success'>{user.firstName}</span>&nbsp;<span className='text-success'>{user.lastName}</span></h3>
+                    </div>   
+                    <div className='col-6 d-flex justify-content-end'>
+                        <Tooltip
+                            title="Logout" 
+                                arrow 
+                                placement="bottom" 
+                                sx={{
+                                    fontSize: '1rem'
+                                }}
+                            >
+                        <IconButton onClick={handleLogout} color="error">
+                            <LogoutIcon />
+                        </IconButton>
+                        </Tooltip>
                     </div>
+                </div>
+                
+            </nav>
+            <section style={{backgroundColor: '#6699E8', paddingTop: '30px'}} >
+                <form action="" className='col-11 col-md-8 col-lg-6 col-xl-6 col-xxl-6 mx-auto mb-4 text-center '>
                     <h2 className='mb-3'>Task Tracker</h2>
                     <input type="text" name="title" placeholder='Enter what to do' className='form-control shadow-none' value={title} onChange={(e) => setTitle(e.target.value)}/>
                     <input type="text" name="description" placeholder='Enter description' className='form-control shadow-none my-3' value={description} onChange={(e)=>setDesc(e.target.value)}/>
                     <input type="datetime-local" name="dueDate"  className='form-control shadow-none my-3'  onChange={(e)=>setDueDate(e.target.value)}/>
                     <button className='btn btn-primary w-100' onClick={todoInfo}>Add Todo</button>
                 </form>
-                <div style={{width: '100%', overflowX: 'auto'}}>
-                    <table className='table table-secondary table-bordered' style={{backgroundColor: '#D6E4ED'}}>
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Added</th>
-                                <th>Due</th>
-                                <th>Action</th>
-                            </tr>  
-                        </thead>
-                        <tbody>
-                            {display.map((item, index) => (
-                                <tr key={index}>
-                                <td style={{ textDecoration: item.isDone ? 'line-through' : 'none' }}>
-                                    {item.title}
-                                </td>
-                                <td style={{ textDecoration: item.isDone ? 'line-through' : 'none' }}>
-                                    {item.description}
-                                </td>
-                                <td>{formDate(item.dueDate)}</td>
-                                <td>{formDate(item.date)}</td>
-                                <td>
-                                    <input
-                                    type="checkbox"
-                                    name='isDone'
-                                    checked={item.isDone || false}
-                                    onChange={() => toggleDone(item)}
-                                    />
-                                    <Tooltip
-                                    title="Edit Task" 
-                                        arrow 
-                                        placement="bottom" 
-                                        sx={{
-                                            fontSize: '1rem'
-                                        }}
-                                    >
-                                    <IconButton aria-label="edit" className='text-success' onClick={() => editTodo(item)}>
-                                        <EditIcon />
-                                    </IconButton>
-                                    </Tooltip>
-                                    <Tooltip 
-                                        title="Delete Task" 
-                                        arrow 
-                                        placement="bottom" 
-                                        sx={{
-                                            fontSize: '1rem'
-                                        }}
-                                        >
-                                    <IconButton
-                                        className='text-danger'
-                                        onClick={() => deleteInfo(item._id)}
-                                    >
-                                    <DeleteIcon sx={{ fontSize: 24 }} />
-                                    </IconButton>
-                                    </Tooltip>
-                                    
-                                </td>
-                                </tr>
-                            ))}
-                        </tbody>
 
-                    </table>
-                </div>
+                <div>
+                    {
+                        display.length === 0 ?(
+                            <div className='text-center'>
+                                <h4>No Todo yet</h4>
+                            </div>
+                        ): (
+                            <div>
+
+                                <div className='d-none d-md-block'  style={{ overflowX: 'auto', overflowY: 'auto', maxHeight:'300px'}}>
+                                    {/* <table className='table table-bordered' style={{ backgroundColor: '#8480DE' }}> */}
+                                    <table className="table table-bordered custom-table" style={{maxHeight:'100px'}}>
+
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th>Added</th>
+                                                <th>Due</th>
+                                                <th>Action</th>
+                                            </tr>  
+                                        </thead>
+                                        <tbody>
+                                            {display.map((item, index) => (
+                                                <tr key={index}>
+                                                <td style={{ textDecoration: item.isDone ? 'line-through' : 'none' }}>
+                                                    {item.title}
+                                                </td>
+                                                <td style={{ textDecoration: item.isDone ? 'line-through' : 'none' }}>
+                                                    {item.description}
+                                                </td>
+                                                <td>{formDate(item.date)}</td>
+                                                <td>{formDate(item.dueDate)}</td>
+                                                <td>
+                                                    {/* <input
+                                                    type="checkbox"
+                                                    name='isDone'
+                                                    checked={item.isDone || false}
+                                                    onChange={() => toggleDone(item)}
+                                                    /> */}
+                                                    <Tooltip
+                                                        title="Edit Task" 
+                                                            arrow 
+                                                            placement="bottom" 
+                                                            sx={{
+                                                                fontSize: '1rem'
+                                                            }}
+                                                    >
+                                                    <IconButton aria-label="edit" className='text-success' onClick={() => editTodo(item)}>
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip 
+                                                        title="Delete Task" 
+                                                        arrow 
+                                                        placement="bottom" 
+                                                        sx={{
+                                                            fontSize: '1rem'
+                                                        }}
+                                                        >
+                                                    <IconButton
+                                                        className='text-danger'
+                                                        onClick={() => deleteInfo(item._id)}
+                                                    >
+                                                    <DeleteIcon sx={{ fontSize: 24 }} />
+                                                    </IconButton>
+                                                    </Tooltip>
+                                                    
+                                                </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                                <div className='d-md-none' style={{ overflowX: 'auto', overflowY: 'auto', maxHeight:'300px'}}>
+                                    <table className='table table-bordered custom-table' style={{minWidth:'768px',}}>
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th>Added</th>
+                                                <th>Due</th>
+                                                <th>Action</th>
+                                            </tr>  
+                                        </thead>
+                                        <tbody>
+                                            {display.map((item, index) => (
+                                                <tr key={index}>
+                                                <td style={{ textDecoration: item.isDone ? 'line-through' : 'none' }}>
+                                                    {item.title}
+                                                </td>
+                                                <td style={{ textDecoration: item.isDone ? 'line-through' : 'none' }}>
+                                                    {item.description}
+                                                </td>
+                                                <td>{formDate(item.date)}</td>
+                                                <td>{formDate(item.dueDate)}</td>
+                                                <td>
+                                                    {/* <input
+                                                    type="checkbox"
+                                                    name='isDone'
+                                                    checked={item.isDone || false}
+                                                    onChange={() => toggleDone(item)}
+                                                    /> */}
+                                                    <Tooltip
+                                                    title="Edit Task" 
+                                                        arrow 
+                                                        placement="bottom" 
+                                                        sx={{
+                                                            fontSize: '1rem'
+                                                        }}
+                                                    >
+                                                    <IconButton aria-label="edit" className='text-success' onClick={() => editTodo(item)}>
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip 
+                                                        title="Delete Task" 
+                                                        arrow 
+                                                        placement="bottom" 
+                                                        sx={{
+                                                            fontSize: '1rem'
+                                                        }}
+                                                        >
+                                                    <IconButton
+                                                        className='text-danger'
+                                                        onClick={() => deleteInfo(item._id)}
+                                                    >
+                                                    <DeleteIcon sx={{ fontSize: 24 }} />
+                                                    </IconButton>
+                                                    </Tooltip>
+                                                    
+                                                </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        )
+                    }
+                            </div>
 
                 <Modal
                     show = {showModal}

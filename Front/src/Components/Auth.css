@@ -1,0 +1,24 @@
+.section{
+    background-image: url(/images/todo3.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* .custom-table {
+  background-color: #f0f4c3 !important;
+  color: #212121; 
+} */
+
+.custom-table, 
+.custom-table thead, 
+.custom-table tbody, 
+.custom-table tr, 
+.custom-table td, 
+.custom-table th {
+  background-color: #6699E8 !important;
+}
+
+a{
+    color: rgb(184, 3, 194);
+}
+

@@ -2,12 +2,7 @@ const todoModel = require("../model/todo.model");
 
 
 const addTodo = (req, res) => {
-    // res.render('submit.ejs');
-    // console.log(req.body);
-    // res.send("Welcome")
     let form = new todoModel(req.body)
-    // console.log(form);
-    
     form.save()
     .then((savedData) => {
         console.log(savedData);
@@ -48,7 +43,9 @@ const getTodo = (req,res)=>{
  const toggleCheckbox = async (req, res) => {
   try {
     const taskId = req.params.id;
-    const { done } = req.body; // Expecting 'done': true/false from the frontend
+    const { done } = req.body;
+    console.log(done);
+     // Expecting 'done': true/false from the frontend
 
     // Find the task by ID
     const task = await Task.findById(taskId);
@@ -96,8 +93,8 @@ const deleteTodo = (req, res) => {
 
 const updateTodo = (req, res) => {
     // console.log(req.body);
-    const {_id, title, description, date} = req.body
-   todoModel.findByIdAndUpdate(_id, { title, description, date }, { new: true })
+    const {_id, title, description, dueDate} = req.body
+   todoModel.findByIdAndUpdate(_id, { title, description, dueDate }, { new: true })
     .then((updatedTodo) => {
         if (!updatedTodo) {
             
