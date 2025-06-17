@@ -178,7 +178,7 @@ const toggleDone = async (todo) => {
     <>
         <main style={{backgroundColor: '#6699E8', minHeight: '100vh', overflowX: 'auto'}} >
             <nav className='container-fluid'>
-                <div className='row'>
+                <div className='row my-3'>
                     <div className='mb-3 col-6'>
                         <h3>Welcome! <span className='text-success'>{user.firstName}</span>&nbsp;<span className='text-success'>{user.lastName}</span></h3>
                     </div>   

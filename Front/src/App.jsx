@@ -19,7 +19,7 @@ function App() {
     <>
       {/* <Navbar/> */}
       <Routes>
-        <Route path='/' element={<Layout/>}/>
+        <Route path='/' element={<Navigate to = '/signup'/>}/>
         <Route path='/signup' element={<Signup/>} />
         <Route path='/login' element={<Login/>} />
         {/* <Route path='/dashboard/:id' element={<User_profile/>}/> */}
