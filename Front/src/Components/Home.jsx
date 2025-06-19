@@ -37,10 +37,10 @@ const Home = () => {
     } else {
       const obj = { title, description, dueDate, userId };
       console.log(obj);
+      alert('Task add successfully')
       axios
         .post(endpoint, obj)
         .then((res) => {
-          // console.log(res);
           fetchData();
         })
         .catch((err) => {
@@ -49,7 +49,7 @@ const Home = () => {
 
       setTitle("");
       setDesc("");
-      setDueDate("");
+    //   setDueDate("");
     }
   };
 
@@ -204,7 +204,7 @@ const Home = () => {
             <input
               type="text"
               name="title"
-              placeholder="Enter what to do"
+              placeholder="Todo Title"
               className="form-control shadow-none"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -212,7 +212,7 @@ const Home = () => {
             <input
               type="text"
               name="description"
-              placeholder="Enter description"
+              placeholder="Todo Description"
               className="form-control shadow-none my-3"
               value={description}
               onChange={(e) => setDesc(e.target.value)}
@@ -336,7 +336,7 @@ const Home = () => {
               >
                 <table
                   className="table table-bordered custom-table"
-                  style={{ minWidth: "768px" }}
+                  style={{ minWidth: "768px", minHeight: '300px' }}
                 >
                   <thead>
                     <tr>
