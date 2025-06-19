@@ -44,3 +44,6 @@ a{
   background: linear-gradient(90deg, #8483E0 50%, #6699E8 90%)!important;
 }
 
+.edit{
+    color: lime !important;
+}

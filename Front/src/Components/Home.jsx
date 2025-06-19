@@ -234,13 +234,14 @@ const Home = () => {
               <h4>No Todo yet</h4>
             </div>
           ) : (
-            <div className="bg">
+            <div>
               <div
-                className="d-none d-md-block"
+                className="d-none d-md-block bg"
                 style={{
                   overflowX: "auto",
                   overflowY: "auto",
-                  maxHeight: "300px",
+                  maxHeight: "340px",
+                  
                 }}
               >
                 {/* <table className='table table-bordered' style={{ backgroundColor: '#8480DE' }}> */}
@@ -297,7 +298,7 @@ const Home = () => {
                           >
                             <IconButton
                               aria-label="edit"
-                              className="text-success"
+                              className="edit"
                               onClick={() => editTodo(item)}
                             >
                               <EditIcon />
@@ -326,7 +327,7 @@ const Home = () => {
               </div>
 
               <div
-                className="d-md-none"
+                className="d-md-none bg"
                 style={{
                   overflowX: "auto",
                   overflowY: "auto",
@@ -371,11 +372,11 @@ const Home = () => {
                         <td>{formDate(item.dueDate)}</td>
                         <td>
                           {/* <input
-                                                    type="checkbox"
-                                                    name='isDone'
-                                                    checked={item.isDone || false}
-                                                    onChange={() => toggleDone(item)}
-                                                    /> */}
+                            type="checkbox"
+                            name='isDone'
+                            checked={item.isDone || false}
+                            onChange={() => toggleDone(item)}
+                            /> */}
                           <Tooltip
                             title="Edit Task"
                             arrow
@@ -386,7 +387,7 @@ const Home = () => {
                           >
                             <IconButton
                               aria-label="edit"
-                              className="text-success"
+                              className="edit"
                               onClick={() => editTodo(item)}
                             >
                               <EditIcon />
