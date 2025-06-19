@@ -62,9 +62,7 @@ const Signup = () => {
             <div className='text-center mb-3'>
               <h1>Signup</h1>
             </div>
-            <div className='text-danger mb-3 text center'>
-              <p>{message}</p>
-            </div>
+            <small>{message}</small>
             <div>
               <input type="text" 
               name='firstName'
