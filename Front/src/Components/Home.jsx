@@ -331,7 +331,7 @@ const Home = () => {
                 style={{
                   overflowX: "auto",
                   overflowY: "auto",
-                  maxHeight: "300px",
+                  maxHeight: "340px",
                 }}
               >
                 <table
