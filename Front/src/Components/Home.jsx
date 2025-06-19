@@ -228,13 +228,13 @@ const Home = () => {
             </button>
           </form>
         </section>
-        <div className="bg">
+        <div>
           {display.length === 0 ? (
             <div className="text-center">
               <h4>No Todo yet</h4>
             </div>
           ) : (
-            <div>
+            <div className="bg">
               <div
                 className="d-none d-md-block"
                 style={{

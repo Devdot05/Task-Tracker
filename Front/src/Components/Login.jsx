@@ -1,6 +1,7 @@
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import axios from "axios"
+import * as yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 import './Auth.css'
 
@@ -49,7 +50,12 @@ const Login = () => {
           console.log(err);
           setLoading(false)
         })
-    }
+    }, 
+
+    validationSchema: yup.object({
+      email: yup.string().email('invalid email format').required('email is required'),
+      password: yup.string().required('password is required')
+    })
   })
 
   return (
@@ -62,21 +68,32 @@ const Login = () => {
             </div>
           ) : (
             <form onSubmit={formik.handleSubmit} className='col-12 col-md-10 col-lg-10 col-xl-10 col-xxl-10  mx-auto'>
-              <h1 className=''>Welcome Back</h1>
-              <input
-                type="email"
-                name='email'
-                placeholder='enter you email'
-                className='form-control shadow-none mt-3'
-                onChange={formik.handleChange}
-              />
-              <input
-                type="password"
-                name='password'
-                placeholder='enter your password'
-                className='form-control shadow-none mt-3'
-                onChange={formik.handleChange}
-              />
+              <div>
+                <h1 className=''>Welcome Back</h1>
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name='email'
+                  placeholder='enter you email'
+                  className='form-control shadow-none mt-3'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+
+                />
+                <small className='text-danger rounded-pill'>{formik.touched.email && formik.errors.email}</small>
+              </div>
+              <div>
+                <input
+                  type="password"
+                  name='password'
+                  placeholder='enter your password'
+                  className='form-control shadow-none mt-3'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <small className='text-danger'>{formik.touched.password && formik.errors.password}</small>
+              </div>
               <small className='text-danger'>{message}</small>
               <button type='submit' className='btn btn-success w-100 my-3 rounded-pill'>Login</button>
               <p className='text center'>You don't have account with us <a href="/signup">Register here</a></p>

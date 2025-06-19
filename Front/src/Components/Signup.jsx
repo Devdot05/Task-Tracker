@@ -116,10 +116,10 @@ const Signup = () => {
       </section>
 
       <section className='container-fluid vh-100 d-block d-sm-none section' style={{backgroundColor: '#CFE2FF'}}>
-        <div className='row bg col-xl-6 col-xxl-6 col-lg-6 col-md-8 col-sm-11  rounded-5 mx-auto'>
+        <div className='row col-xl-6 col-xxl-6 col-lg-6 col-md-8 col-sm-11  rounded-5 mx-auto'>
           <form onSubmit={formik.handleSubmit} className='col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10 mx-auto py-5'>
             <div className='text-center mb-3'>
-              <h1>Signup</h1>
+              <p>Signup</p>
             </div>
             <small>{message}</small>
             <div>
