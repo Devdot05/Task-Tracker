@@ -71,7 +71,7 @@ const Login = () => {
               <div>
                 <h1 className=''>Welcome Back</h1>
               </div>
-              <div>
+              <div className='text-start'>
                 <input
                   type="email"
                   name='email'
@@ -83,7 +83,7 @@ const Login = () => {
                 />
                 <small className='text-danger rounded-pill'>{formik.touched.email && formik.errors.email}</small>
               </div>
-              <div>
+              <div className='text-start'>
                 <input
                   type="password"
                   name='password'
