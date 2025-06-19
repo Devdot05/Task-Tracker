@@ -1,9 +1,27 @@
-.section{
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+main{
+  /* background: linear-gradient(90deg, #8483E0 60%, #6699E8  90%); */
+  background-image: url(/images/todo3.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+section{
     background-image: url(/images/todo3.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+.name{
+    color: lime;
+}
+
+nav{
+    background-color: #6699E8;
+}
 /* .custom-table {
   background-color: #f0f4c3 !important;
   color: #212121; 
@@ -15,10 +33,14 @@
 .custom-table tr, 
 .custom-table td, 
 .custom-table th {
-  background-color: #6699E8 !important;
+  background-color: #8583e000 !important;
 }
 
 a{
     color: rgb(184, 3, 194);
+}
+
+.bg{
+  background: linear-gradient(90deg, #8483E0 50%, #6699E8 90%)!important;
 }
 
